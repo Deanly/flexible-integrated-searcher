@@ -1,8 +1,9 @@
 @startuml
 
 object "검색조건" as condition {
-    * 검색조건 스팩 변경 가능
-    * 버전 관리
+    * Nullable 검색 필드 제공
+    * Not-Nullable 필드 지정 기능 제공
+    * 검색조건 스팩 변경시 버전 관리
 }
 
 note left of condition: <시작>\n검색 조건의 \n도메인 상세스팩 정의서술 생략
