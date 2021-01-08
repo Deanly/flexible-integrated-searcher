@@ -3,21 +3,23 @@
 /' SearchProduct
  - Core Domain
 '/
-class Search<<Core>> {
-    + policy: SearchPolicy
-    + serviceProvider: QueryServiceProvider
+abstract Search<<Core>> {
+    + policy: ISearchPolicy
+    + serviceProvider: IQueryServiceProvider
     - translator: ConditionTranslator
     - queryWorker: SearchQueryWorker
-    + query(SearchCondition) -> SearchAnswer<T>
+
+    + abstract getType() -> SearchColumnType
+    + query(ISearchCondition) -> SearchAnswer<T>
 }
 
-/' SearchCondition
+/' ISearchCondition
  - 검색 도메인 가시화
  - 검색 조건 정의
  - 버전 관리
 '/
-interface SearchCondition {
-    + columns() -> SearchColumn<?>[]
+interface ISearchCondition {
+    + columns() -> ISearchColumn<?>[]
     + requiredColumns() -> ColumnTypeGroup[]
     + getPageable() -> Pageable
 }
@@ -26,7 +28,7 @@ class ColumnTypeGroup {
     + types: ColumnType[]
 }
 
-interface SearchColumn<T> {
+interface ISearchColumn<T> {
     + type() -> ColumnType
     + rawValue() -> T
     + operator() -> SearchOperator
@@ -42,9 +44,8 @@ enum SearchOperator {
     : OR
 }
 
-
 class SearchAnswer<T> {
-    + conditions: SearchCondition
+    + conditions: ISearchCondition
     + values: Page<SearchAnswerItem<T>>
 }
 
@@ -61,29 +62,29 @@ validation
  - 필수 값 검사, 실패시 예외 InvalidConditionException.
  - QueryAPIProvider 지원 여부 검사, 실패시 예외 InvalidConditionException.
 
-translation by SearchPolicy
+translation by ISearchPolicy
  1. Or/And 그룹화.
  2. PriorityQueryByColumn
 
 '/
 
 class ConditionTranslator {
-    + translate(QueryServiceType, SearchPolicy, SearchCondition) \n  -> QueryCoordinator[]
+    + translate(ISearchPolicy, ISearchCondition) \n  -> QueryCoordinator[]
 }
 
 class InvalidConditionException
 
 
-/' SearchPolicyProvider
+/' ISearchPolicyProvider
 '/
-interface SearchPolicy {
+interface ISearchPolicy {
     + prioritiesQueryByColumn: [PriorityQueryByColumn]
 }
 
 class PriorityQueryByColumn {
     + ColumnType: ColumnType
     + priorityQueryType: PriorityQueryType
-    + query
+    + queryServiceType: QueryServiceType
 }
 
 enum PriorityQueryType {
@@ -98,9 +99,6 @@ class QueryWorkerException
 /' SearchQueryWorker
 '/
 class SearchQueryWorker {
-    + <T> parallels(QueryServiceType, QueryCoordinator[]) -> List<SearchAnswerItem<T>>
-    + <T> stream(QueryServiceType, QueryCoordinator[]) -> List<SearchAnswerItem<T>>
-    + <T> stream(QueryServiceType, QueryCoordinator) -> List<SearchAnswerItem<T>>
     + <T> waterfall(QueryServiceType, QueryCoordinator[]) -> List<SearchAnswerItem<T>>
     + <T> blockPage(QueryServiceType, QueryCoordinator[]) -> Page<SearchAnswerItem<T>>
 }
@@ -108,7 +106,7 @@ class SearchQueryWorker {
 /' QueryCoordinator
 '/
 abstract QueryCoordinator {
-    # conditions: SearchColumn<?>[]
+    # conditions: ISearchColumn<?>[]
     # references: ColumnType[]
     # pageable: Pageable
     + isStandard: boolean
@@ -116,22 +114,18 @@ abstract QueryCoordinator {
     + query(SearchInfraInterface) -> List<SearchResultItem<?>>
 }
 
-class QueryCoordinatorFactory {
-    + getInstance(QueryServiceType, SearchColumn<?>[], \n\tSearchColumnType[], boolean, Pageable) -> QueryCoordinator
-}
-
-/' QueryServiceInterface
- - 기본 순서는 QueryServiceProvider 에 정의된 순서.
+/' IQueryService
+ - 기본 순서는 IQueryServiceProvider 에 정의된 순서.
 '/
-interface QueryServiceInterface<T> {
+interface IQueryService<T> {
     + type() -> QueryServiceType
-    + search(SearchColumn<?>[], Pageable) -> Page<T>
+    + search(ISearchColumn<?>[], Pageable) -> Page<T>
     + identifier() -> ColumnType
     + references() -> ColumnType[]
 }
 
-interface QueryServiceProvider {
-    + access(QueryServiceType) -> QueryServiceInterface
+interface IQueryServiceProvider {
+    + access(QueryServiceType) -> IQueryService
     + defaultPriority() -> QueryServiceType[]
 }
 
@@ -143,31 +137,30 @@ enum QueryServiceType {
 Search .> SearchAnswer
 Search *-- SearchQueryWorker
 Search *-- ConditionTranslator
-Search o--- QueryServiceProvider
-Search o--- SearchPolicy
+Search o--- IQueryServiceProvider
+Search o--- ISearchPolicy
 
-SearchCondition "1" -- "0.." SearchColumn
-SearchCondition <. Search
-SearchCondition .> ColumnTypeGroup
+ISearchCondition "1" -- "0.." ISearchColumn
+ISearchCondition <. Search
+ISearchCondition .> ColumnTypeGroup
 
-SearchColumn . ColumnType
-SearchColumn .. SearchOperator
+ISearchColumn . ColumnType
+ISearchColumn .. SearchOperator
 
 ColumnTypeGroup ..> ColumnType
 
-QueryServiceProvider "1" ..> "0.." QueryServiceInterface
-QueryServiceProvider . QueryServiceType
+IQueryServiceProvider "1" ..> "0.." IQueryService
 
-SearchPolicy ..> PriorityQueryByColumn
+IQueryService . QueryServiceType
+
+ISearchPolicy ..> PriorityQueryByColumn
 
 PriorityQueryByColumn ..> PriorityQueryType
 
-ConditionTranslator ..> SearchPolicy
+ConditionTranslator ..> ISearchPolicy
 
-SearchQueryWorker ..> QueryServiceProvider
+SearchQueryWorker ..> IQueryServiceProvider
 SearchQueryWorker . QueryWorkerException
-
-QueryCoordinator <. QueryCoordinatorFactory
 
 QueryCoordinator <.. SearchQueryWorker
 
