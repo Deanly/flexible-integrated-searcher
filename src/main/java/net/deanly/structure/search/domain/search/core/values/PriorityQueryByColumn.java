@@ -2,8 +2,8 @@ package net.deanly.structure.search.domain.search.core.values;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import net.deanly.structure.search.domain.search.condition.ColumnType;
-import net.deanly.structure.search.domain.search.provider.QueryServiceType;
+import net.deanly.structure.search.domain.search.customized_types.ColumnType;
+import net.deanly.structure.search.domain.search.customized_types.QueryServiceType;
 
 @Data
 @AllArgsConstructor

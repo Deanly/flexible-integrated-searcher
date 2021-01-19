@@ -1,7 +1,8 @@
-package net.deanly.structure.search.domain.search.core.sub;
+package net.deanly.structure.search.domain.search.core.sub.internal;
 
-import lombok.extern.slf4j.Slf4j;
-import net.deanly.structure.search.domain.search.condition.ColumnType;
+import net.deanly.structure.search.domain.search.core.sub.ISearchPolicy;
+import net.deanly.structure.search.domain.search.core.sub.QueryCoordinator;
+import net.deanly.structure.search.domain.search.customized_types.ColumnType;
 import net.deanly.structure.search.domain.search.core.condition.ColumnTypeGroup;
 import net.deanly.structure.search.domain.search.core.condition.ISearchColumn;
 import net.deanly.structure.search.domain.search.core.condition.ISearchCondition;
@@ -9,14 +10,13 @@ import net.deanly.structure.search.domain.search.core.exception.InvalidCondition
 import net.deanly.structure.search.domain.search.core.exception.NoQueryServiceException;
 import net.deanly.structure.search.domain.search.core.values.PriorityQueryByColumn;
 import net.deanly.structure.search.domain.search.core.values.PriorityQueryType;
-import net.deanly.structure.search.domain.search.provider.QueryServiceType;
+import net.deanly.structure.search.domain.search.customized_types.QueryServiceType;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import javax.management.Query;
 import java.util.*;
 
-public final class ConditionTranslator {
+public final class WeightedCriteriaTranslator {
 
     public QueryCoordinator translate(ISearchPolicy policy, ISearchCondition condition)
             throws InvalidConditionException, NoQueryServiceException {

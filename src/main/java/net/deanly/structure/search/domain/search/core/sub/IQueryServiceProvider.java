@@ -1,6 +1,6 @@
 package net.deanly.structure.search.domain.search.core.sub;
 
-import net.deanly.structure.search.domain.search.provider.QueryServiceType;
+import net.deanly.structure.search.domain.search.customized_types.QueryServiceType;
 
 import java.lang.reflect.Type;
 

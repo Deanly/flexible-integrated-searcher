@@ -1,10 +1,10 @@
 package net.deanly.structure.search.domain.search.core.sub;
 
 import lombok.AllArgsConstructor;
-import net.deanly.structure.search.domain.search.condition.ColumnType;
+import net.deanly.structure.search.domain.search.customized_types.ColumnType;
 import net.deanly.structure.search.domain.search.core.answer.SearchAnswerItem;
 import net.deanly.structure.search.domain.search.core.condition.ISearchColumn;
-import net.deanly.structure.search.domain.search.provider.QueryServiceType;
+import net.deanly.structure.search.domain.search.customized_types.QueryServiceType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -44,7 +44,7 @@ public abstract class QueryCoordinator {
     /**
      * To support method `query`.
      */
-    protected <T> Page<SearchAnswerItem<T>> queryToSupportWithPage(IQueryService<T> queryService) {
+    public <T> Page<SearchAnswerItem<T>> queryToSupportWithPage(IQueryService<T> queryService) {
         return queryService.search(this.conditions, this.pageable, this.getReferences());
     }
 

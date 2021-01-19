@@ -7,6 +7,8 @@ import net.deanly.structure.search.domain.search.core.condition.ISearchCondition
 import net.deanly.structure.search.domain.search.core.exception.InvalidConditionException;
 import net.deanly.structure.search.domain.search.core.exception.NoQueryServiceException;
 import net.deanly.structure.search.domain.search.core.sub.*;
+import net.deanly.structure.search.domain.search.core.sub.internal.SearchQueryWorker;
+import net.deanly.structure.search.domain.search.core.sub.internal.WeightedCriteriaTranslator;
 import org.springframework.data.domain.Page;
 
 import java.lang.reflect.Type;
@@ -18,14 +20,14 @@ public abstract class Search<T> {
     private final ISearchPolicy searchPolicy;
     private final IQueryServiceProvider queryServiceProvider;
 
-    private final ConditionTranslator translator;
+    private final WeightedCriteriaTranslator translator;
     private final SearchQueryWorker queryWorker;
 
     public Search(ISearchPolicy policy, IQueryServiceProvider provider) {
         this.searchPolicy = policy;
         this.queryServiceProvider = provider;
 
-        this.translator = new ConditionTranslator();
+        this.translator = new WeightedCriteriaTranslator();
         this.queryWorker = new SearchQueryWorker();
     }
 

@@ -1,9 +1,9 @@
 package net.deanly.structure.search.domain.search.core.sub;
 
-import net.deanly.structure.search.domain.search.condition.ColumnType;
+import net.deanly.structure.search.domain.search.customized_types.ColumnType;
 import net.deanly.structure.search.domain.search.core.answer.SearchAnswerItem;
 import net.deanly.structure.search.domain.search.core.condition.ISearchColumn;
-import net.deanly.structure.search.domain.search.provider.QueryServiceType;
+import net.deanly.structure.search.domain.search.customized_types.QueryServiceType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

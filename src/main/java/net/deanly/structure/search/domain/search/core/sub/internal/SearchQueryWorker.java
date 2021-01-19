@@ -1,14 +1,14 @@
-package net.deanly.structure.search.domain.search.core.sub;
+package net.deanly.structure.search.domain.search.core.sub.internal;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
 import net.deanly.structure.search.domain.search.core.answer.SearchAnswerItem;
 import net.deanly.structure.search.domain.search.core.exception.NoQueryServiceException;
+import net.deanly.structure.search.domain.search.core.sub.IQueryService;
+import net.deanly.structure.search.domain.search.core.sub.IQueryServiceProvider;
+import net.deanly.structure.search.domain.search.core.sub.QueryCoordinator;
 import org.springframework.data.domain.Page;
 
 import java.lang.reflect.Type;
 import java.util.Objects;
-import java.util.Set;
 
 public final class SearchQueryWorker {
 
@@ -27,14 +27,16 @@ public final class SearchQueryWorker {
     }
 
     /**
-     * 다중 QueryCoordinator 처리가 필요할 스팩이 추가될 경우 구현.
+     * 다중 QueryCoordinator 처리 스팩 생략.
+     * Cross Infra Repository Search 를 고려한 method.
      * @hidden
      */
     public <T> Page<SearchAnswerItem<T>>  parallelsQueryPage(Type t, IQueryServiceProvider provider, QueryCoordinator[] qc) {
         return null;
     }
     /**
-     * 다중 QueryCoordinator 처리가 필요할 스팩이 추가될 경우 구현.
+     * 다중 QueryCoordinator 처리 스팩 생략.
+     * Cross Infra Repository Search 를 고려한 method.
      * @hidden
      */
     public <T> Page<SearchAnswerItem<T>>  waterfallQueryPage(Type t, IQueryServiceProvider provider, QueryCoordinator[] qc) {

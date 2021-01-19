@@ -30,13 +30,18 @@ class ColumnTypeGroup {
 
 interface ISearchColumn<T> {
     + type() -> ColumnType
+    + rawKey(QueryServiceType) -> String
     + rawValue() -> T
     + operator() -> SearchOperator
     + readableQueryServices() -> QueryServiceType[]
 }
 
 enum ColumnType {
+    - type: java.lang.reflect.Type
+
     { customized }
+
+    + getType() -> java.lang.reflect.Type
 }
 
 enum SearchOperator {

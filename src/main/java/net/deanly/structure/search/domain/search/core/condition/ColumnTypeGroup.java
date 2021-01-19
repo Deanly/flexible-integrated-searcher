@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.deanly.structure.search.domain.search.condition.ColumnType;
+import net.deanly.structure.search.domain.search.customized_types.ColumnType;
 
 @Data
 @AllArgsConstructor
