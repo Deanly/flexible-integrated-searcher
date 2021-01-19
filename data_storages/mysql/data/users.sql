@@ -1,7 +1,7 @@
 -- 출처: https://www.mockaroo.com/
 
 create table users (
-	id INT,
+	id BIGINT PRIMARY KEY,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	email VARCHAR(50),
@@ -11,6 +11,7 @@ create table users (
 	city VARCHAR(50),
 	job_title VARCHAR(50),
 	created_at DATE,
+	updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
 	birthday DATE
 );
 insert into users (id, first_name, last_name, email, gender, ip_address, bool, city, job_title, created_at, birthday) values (1, 'Colby', 'Fernandez', 'cfernandez0@army.mil', 'Male', '173.39.42.108', true, 'Xiangxiang', 'Registered Nurse', '2020-06-10 11:36:19', '1993-05-24 09:42:41');

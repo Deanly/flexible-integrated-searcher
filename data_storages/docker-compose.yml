@@ -17,6 +17,11 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   mysqlsetup:
     image: data_storages_mysql
+    volumes:
+      - type: bind
+        source: ./mysql/data/users.sql
+        target: /data/users.sql
+        read_only: true
     depends_on:
       - mysql
     restart: "no"
