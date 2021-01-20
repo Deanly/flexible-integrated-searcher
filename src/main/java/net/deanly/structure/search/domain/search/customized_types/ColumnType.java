@@ -16,6 +16,7 @@ public enum ColumnType {
     USER_CAR_MODEL(String.class),
     USER_COMPANY_NAME(String.class),
     USER_BIRTHDAY(Date.class),
+    USER_IS_MEMBER(Boolean.class),
     USER_CREATED_AT(Date.class),
     USER_UPDATED_AT(Date.class)
     ;

@@ -2,6 +2,7 @@ package net.deanly.structure.search.infrastructure.jpa;
 
 import net.deanly.structure.search.domain.search.provider.UserJPAQueryService;
 import net.deanly.structure.search.infrastructure.jpa.entity.UserDTO;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,12 +21,14 @@ public class UsersRepositoryUnitTests {
     public void test_access() {
         long count = usersRepository.count();
         System.out.println(count);
+        Assertions.assertTrue(count > 0);
     }
 
     @Test
     public void test_get_first() {
         Optional<UserDTO> user = usersRepository.findById(1L);
         System.out.println(user);
+        Assertions.assertNotNull(user);
     }
 
 }

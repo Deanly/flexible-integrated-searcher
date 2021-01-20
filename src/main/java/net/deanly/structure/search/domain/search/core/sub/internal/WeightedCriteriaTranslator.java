@@ -92,7 +92,7 @@ public final class WeightedCriteriaTranslator {
         // 지원하지 않는 인프라 삭제
         this.cleanUnsupportedInfraType(weights, allConditions);
 
-        if (weights.size() == 0) throw new NoQueryServiceException("There is no searchable Query Service." +
+        if (weights.size() == 0) throw new NoQueryServiceException("There is no searchable Query-Service that every columns can be supported at the same time." +
                 "\n\tWeights:" + weights +
                 "\n\tTarget: null\n\t" +
                 "\n\tCondition: " + condition);
@@ -134,17 +134,17 @@ public final class WeightedCriteriaTranslator {
         ISearchColumn<?>[] columns = conditions.columns();
 
         for (ColumnTypeGroup requiredGroup : requiredGroups) {
-            boolean ok = false;
+            boolean matched = false;
             for (ColumnType requiredType : requiredGroup.getTypes()) {
                 for (ISearchColumn<?> column : columns) {
                     if (requiredType.equals(column.type())) {
-                        ok = true;
+                        matched = true;
                         break;
                     }
                 }
-                if (ok) break; // group ok
+                if (matched) break; // group ok
             }
-            if (!ok) {
+            if (!matched) {
                 throw new InvalidConditionException("condition does not satisfy the required value." + requiredGroup);
             }
         }

@@ -20,6 +20,9 @@ public class UserCreatedAtColumn implements ISearchColumn<SearchPeriod> {
 
     public SearchPeriod val;
 
+    public UserCreatedAtColumn() {
+        this.val = new SearchPeriod("2018-01-01", null);
+    }
     public UserCreatedAtColumn(SearchPeriod value) {
         this.val = value;
     }
