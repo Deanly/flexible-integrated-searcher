@@ -1,0 +1,92 @@
+@startuml
+
+object "검색조건" as condition {
+    * Nullable 검색 필드 제공
+    * Not-Nullable 필드 지정 기능 제공
+    * 검색조건 스팩 변경시 버전 관리
+}
+
+note left of condition: <시작>\n검색 조건의 \n도메인 상세스팩 정의서술 생략
+
+object "항목" as column {
+    * 다양한 검색 형태
+        Select Box (single)
+        Check Box (multi)
+        Date Period (double)
+        Single
+    * Operation 선택
+        AND
+        OR
+    * 검색 가능한 Repository 정보
+}
+
+object "검색 수행" as search {
+    * Repository 에 query 수행
+    * Query 는 limit 을 포함한 Pagination 질의
+    * 질의당 단일 자원 검색
+}
+
+object "검색결과" as result {
+    * 검색 조건 (condition)
+    * Pagination
+}
+
+object "검색 조건 해석" as translator {
+    * 검색조건에 따라서 Repository 를 선별하여 검색
+    * 검색 정책에 따라서 검색조건을 해석하여 검색
+    * 선택되는 Repository 는 모든 검색조건 Column 질의가 가능해야함
+}
+
+object "정책" as policy {
+    * 아래 3가지 정책을 Column 별로 복수 정의 가능.
+    * 충돌시 해석 순서 : Always > Avoid > Prefer
+    * 항상선택: 특정 Column 이 조건에 존재할 경우 항상 A 저장소를 선택. 불가능할 경우 예외처리. (Always)
+    * 선호선택: 특정 Column 이 조건에 존재할 경우 항상 A 저장소를 선택. 불가능할 경우 차선책 선택. (Prefer)
+    * 선택회피: 특정 Column 이 조건에 존재할 경우 항상 A 저장소를 회피. (Avoid)
+}
+
+object "Result Item" as item {
+    * 데이터의 식별자 (Identifier)
+}
+note right of result: <끝>\n 이후 처리 예제\n  1. 데이터 식별자를 통해서 데이터 조회 (View & Presentation)\n  2. API 제공 (Service API)
+'object "결과 처리 (example)" as nextstep {
+'    <끝>
+'    1. 데이터 식별자를 통해서 데이터 조회 (View & Presentation)
+'    2. API 제공 (Service API)
+'}
+
+package "저장소 (Repository)" as repository {
+    object "Database" as database {
+    }
+
+    object "Elasticsearch" as es {
+    }
+
+    object "Server API" as api {
+    }
+
+    object "Something..." as something {
+        추가 관리 가능
+    }
+}
+
+condition "1" -- "0.." column
+condition -> translator
+
+translator -> search
+translator -- policy
+
+search -> result
+
+result "1" -- "0.." item
+
+search ..> database
+search <.. database
+search ...> es
+search <... es
+search ...> api
+search <... api
+search ..> something
+search <.. something : One transaction one Repository.
+
+@enduml
