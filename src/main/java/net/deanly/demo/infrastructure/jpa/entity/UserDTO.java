@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @ToString
-@Entity
+@Entity(name = "users")
 @Table(name = "users")
 public class UserDTO {
     @Id
@@ -43,6 +43,9 @@ public class UserDTO {
 
     @Column(name = "birthday")
     private Date birthday;
+
+    @Column(name = "payment_currency")
+    private String paymentCurrency;
 
     @Column(name = "created_at")
     private Date createdAt;

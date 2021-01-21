@@ -34,7 +34,14 @@ public class UserDateCreatedAtColumn implements ISearchColumn<SearchPeriod> {
 
     @Override
     public String rawKey(QueryServiceType queryServiceType) {
-        return "created_at";
+        switch (queryServiceType) {
+            case DB_USERS:
+                return "createdAt";
+            case ES_USERS:
+                return "created_at";
+            default:
+                return null;
+        }
     }
 
     @Override

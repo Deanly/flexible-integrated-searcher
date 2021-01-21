@@ -31,7 +31,14 @@ public class UserDateUpdatedAtColumn implements ISearchColumn<SearchPeriod> {
 
     @Override
     public String rawKey(QueryServiceType queryServiceType) {
-        return "updated_at";
+        switch (queryServiceType) {
+            case DB_USERS:
+                return "updatedAt";
+            case ES_USERS:
+                return "updated_at";
+            default:
+                return null;
+        }
     }
 
     @Override

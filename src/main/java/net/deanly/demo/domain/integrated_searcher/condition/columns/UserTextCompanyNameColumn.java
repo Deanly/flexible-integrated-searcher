@@ -30,7 +30,14 @@ public class UserTextCompanyNameColumn implements ISearchColumn<String> {
 
     @Override
     public String rawKey(QueryServiceType queryServiceType) {
-        return "company_name";
+        switch (queryServiceType) {
+            case DB_USERS:
+                return "companyName";
+            case ES_USERS:
+                return "company_name";
+            default:
+                return null;
+        }
     }
 
     @Override

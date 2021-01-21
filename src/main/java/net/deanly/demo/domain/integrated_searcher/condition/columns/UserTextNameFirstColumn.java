@@ -32,7 +32,7 @@ public class UserTextNameFirstColumn implements ISearchColumn<String> {
     public String rawKey(QueryServiceType queryServiceType) {
         switch (queryServiceType) {
             case DB_USERS:
-                return "first_name";
+                return "firstName";
             case ES_USERS:
                 return "name";
             default:

@@ -32,7 +32,7 @@ public class UserTextOwnedCarColumn implements ISearchColumn<String> {
     public String rawKey(QueryServiceType queryServiceType) {
         switch (queryServiceType) {
             case DB_USERS:
-                return "car_model";
+                return "carModel";
             case ES_USERS:
                 return "owned_car";
             default:

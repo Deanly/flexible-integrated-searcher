@@ -34,7 +34,7 @@ public class UserTextNameFullColumn implements ISearchColumn<String> {
             case ES_USERS:
                 return "name";
             case DB_USERS:
-                return "first_name, ,last_name";
+                return "firstName, ,lastName";
             default:
                 return null;
         }

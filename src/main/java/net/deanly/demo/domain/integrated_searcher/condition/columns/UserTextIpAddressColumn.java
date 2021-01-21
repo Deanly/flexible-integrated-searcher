@@ -31,6 +31,8 @@ public class UserTextIpAddressColumn implements ISearchColumn<String> {
     public String rawKey(QueryServiceType queryServiceType) {
         switch (queryServiceType) {
             case DB_USERS:
+                return "ipAddress";
+            case ES_USERS:
                 return "ip_address";
             default:
                 return null;

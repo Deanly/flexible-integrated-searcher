@@ -33,6 +33,7 @@ public class UserSelectBoxGenderColumn implements ISearchColumn<String> {
     public String rawKey(QueryServiceType queryServiceType) {
         switch (queryServiceType) {
             case DB_USERS:
+            case ES_USERS:
                 return "gender";
             default:
                 return null;

@@ -33,7 +33,14 @@ public class UserSelectBoxCurrencyColumn implements ISearchColumn<String> {
 
     @Override
     public String rawKey(QueryServiceType queryServiceType) {
-        return "payment_currency";
+        switch (queryServiceType) {
+            case DB_USERS:
+                return "paymentCurrency";
+            case ES_USERS:
+                return "payment_currency";
+            default:
+                return null;
+        }
     }
 
     @Override

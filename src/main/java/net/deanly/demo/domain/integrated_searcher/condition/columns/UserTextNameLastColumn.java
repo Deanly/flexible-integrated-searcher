@@ -28,7 +28,7 @@ public class UserTextNameLastColumn implements ISearchColumn<String> {
     public String rawKey(QueryServiceType queryServiceType) {
         switch (queryServiceType) {
             case DB_USERS:
-                return "last_name";
+                return "lastName";
             case ES_USERS:
                 return "name";
             default:
