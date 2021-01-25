@@ -34,6 +34,7 @@ public class UserTextNameFullColumn implements ISearchColumn<String> {
             case ES_USERS:
                 return "name";
             case DB_USERS:
+                // NOTE(dean): DB Only Customized (Only being processed in `UserJPAQueryService.patternConcatString`)
                 return "firstName, ,lastName";
             default:
                 return null;
