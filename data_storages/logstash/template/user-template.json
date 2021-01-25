@@ -1,0 +1,59 @@
+{
+  "index_patterns": [
+    "users-*"
+  ],
+  "settings": {
+    "index.refresh_interval": "5s",
+    "analysis": {
+      "analyzer": {
+        "whitespace_analyzer": {
+          "tokenizer": "whitespace",
+          "filter": [
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "id": {
+        "type": "long"
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "whitespace_analyzer"
+      },
+      "email": {
+        "type": "text"
+      },
+      "gender": {
+        "type": "keyword"
+      },
+      "ip_address": {
+        "type": "keyword"
+      },
+      "married": {
+        "type": "keyword"
+      },
+      "car_model": {
+        "type": "text"
+      },
+      "company_name": {
+        "type": "text"
+      },
+      "birthday": {
+        "type": "date"
+      },
+      "payment_currency": {
+        "type": "keyword"
+      },
+      "created_at": {
+        "type": "date"
+      },
+      "updated_at": {
+        "type": "date"
+      }
+    }
+  }
+}
