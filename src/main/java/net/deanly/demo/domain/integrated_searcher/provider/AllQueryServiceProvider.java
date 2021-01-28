@@ -3,6 +3,7 @@ package net.deanly.demo.domain.integrated_searcher.provider;
 import net.deanly.demo.domain.integrated_searcher.core.sub.IQueryService;
 import net.deanly.demo.domain.integrated_searcher.core.sub.IQueryServiceProvider;
 import net.deanly.demo.domain.integrated_searcher.customized_types.QueryServiceType;
+import net.deanly.demo.domain.integrated_searcher.provider.query_services.UserJPAQueryService;
 import net.deanly.demo.infrastructure.jpa.UsersRepository;
 
 import java.lang.reflect.Type;

@@ -6,7 +6,7 @@ import net.deanly.demo.domain.integrated_searcher.core.condition.ISearchColumn;
 import net.deanly.demo.domain.integrated_searcher.core.values.SearchPeriod;
 import net.deanly.demo.domain.integrated_searcher.customized_types.ColumnType;
 import net.deanly.demo.domain.integrated_searcher.customized_types.QueryServiceType;
-import net.deanly.demo.domain.integrated_searcher.provider.UserJPAQueryService;
+import net.deanly.demo.domain.integrated_searcher.provider.query_services.UserJPAQueryService;
 import net.deanly.demo.infrastructure.jpa.UsersRepository;
 import net.deanly.demo.infrastructure.jpa.entity.UserDTO;
 import org.junit.jupiter.api.Assertions;

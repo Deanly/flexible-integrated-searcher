@@ -1,4 +1,4 @@
-package net.deanly.demo.domain.integrated_searcher.provider;
+package net.deanly.demo.domain.integrated_searcher.provider.query_services;
 
 import com.google.common.base.Strings;
 import net.deanly.demo.domain.integrated_searcher.core.condition.ISearchColumn;
