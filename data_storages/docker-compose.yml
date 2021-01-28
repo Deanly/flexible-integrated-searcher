@@ -28,6 +28,8 @@ services:
       - mysql
     restart: "no"
     command: sh -c "sleep 15 && mysql -hmysql -uuser -ppw my_db < /data/users.sql"
+    networks:
+      - test
 
 
   elasticsearch:
