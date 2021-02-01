@@ -8,6 +8,7 @@ import net.deanly.demo.domain.integrated_searcher.customized_types.QueryServiceT
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.*;
 
 @AllArgsConstructor
@@ -44,7 +45,7 @@ public abstract class QueryCoordinator {
     /**
      * To support method `query`.
      */
-    public <T> Page<SearchAnswerItem<T>> queryToSupportWithPage(IQueryService<T> queryService) {
+    public <T> Page<SearchAnswerItem<T>> queryToSupportWithPage(IQueryService<T> queryService) throws IOException {
         return queryService.search(this.conditions, this.pageable, this.getReferences());
     }
 

@@ -14,6 +14,7 @@ import net.deanly.demo.domain.integrated_searcher.core.sub.internal.WeightedCrit
 import net.deanly.demo.domain.integrated_searcher.customized_types.QueryServiceType;
 import org.springframework.data.domain.Page;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 public abstract class CoreSearcher<T> {
@@ -38,7 +39,7 @@ public abstract class CoreSearcher<T> {
         return this.type;
     }
 
-    public SearchAnswer<T> search(ISearchCondition condition) throws InvalidConditionException, NoQueryServiceException {
+    public SearchAnswer<T> search(ISearchCondition condition) throws InvalidConditionException, NoQueryServiceException, IOException {
         QueryCoordinator qc = this.translator.translate(this.searchPolicy, condition);
 
         Page<SearchAnswerItem<T>> items = this.queryWorker.blockQueryPage(this.getIdentifierType(), this.queryServiceProvider, qc);

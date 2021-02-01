@@ -7,13 +7,14 @@ import net.deanly.demo.domain.integrated_searcher.core.sub.QueryCoordinator;
 import net.deanly.demo.domain.integrated_searcher.core.exception.NoQueryServiceException;
 import org.springframework.data.domain.Page;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Objects;
 
 public final class SearchQueryWorker {
 
     public <T> Page<SearchAnswerItem<T>> blockQueryPage(Type t, IQueryServiceProvider provider, QueryCoordinator qc)
-            throws NoQueryServiceException {
+            throws NoQueryServiceException, IOException {
 
         IQueryService<?> unchecked = provider.access(t, qc.getQueryServiceType());
 
